@@ -23,7 +23,7 @@ const postLogin = asyncHandler(async (request, response) => {
                 username: userCheck.username,
                 email: userCheck.email,
             }
-        }, process.env.SECRET_ACCESS_TOKEN, { expiresIn: "1m" });
+        }, process.env.SECRET_ACCESS_TOKEN, { expiresIn: "15m" });
         response.status(201).json({ AccessToken });
     }else{
         response.status(401);
