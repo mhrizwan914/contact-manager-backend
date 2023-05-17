@@ -4,7 +4,7 @@ const asyncHandler = require("express-async-handler");
 const Contact = require("../models/contact");
 //@description Get All Contacts
 //@route Get /api/contacts
-//@access publuc
+//@access public
 const getContacts = asyncHandler(async (request, response) => {
     const contacts = await Contact.find();
     response.json({
@@ -15,10 +15,10 @@ const getContacts = asyncHandler(async (request, response) => {
 });
 //@description Get Contacts By Id
 //@route Get /api/contacts/:id
-//@access publuc
+//@access public
 const getContactsById = asyncHandler(async (request, response) => {
     const contacts = await Contact.findById(request.params.id);
-    if(!contacts){
+    if (!contacts) {
         response.status(404);
         throw new Error("Data Not Found");
     }
@@ -29,7 +29,7 @@ const getContactsById = asyncHandler(async (request, response) => {
 });
 //@description Post New Contacts
 //@route Get /api/contacts/
-//@access publuc
+//@access public
 const postContacts = asyncHandler(async (request, response) => {
     // console.log("The request body is:", request.body);
     const { name, email, phone } = request.body;
@@ -46,18 +46,27 @@ const postContacts = asyncHandler(async (request, response) => {
 });
 //@description Put Existing Contacts
 //@route Get /api/contacts/:id
-//@access publuc
+//@access public
 const putContacts = asyncHandler(async (request, response) => {
+    const contacts = await Contact.findByIdAndUpdate(request.params.id, request.body, { new: true });
+
     response.json({
-        message: `Update Specefic Contact ${request.params.id}`
+        message: `Update Specefic Contact ${request.params.id}`,
+        data: contacts
     }).status(200);
 });
 //@description Delete Existing Contacts
 //@route Get /api/contacts/:id
-//@access publuc
+//@access public
 const deleteContacts = asyncHandler(async (request, response) => {
+    const contacts = await Contact.findByIdAndRemove(request.params.id);
+    if (!contacts) {
+        response.status(404);
+        throw new Error("Data Not Found");
+    }
     response.json({
-        message: `Delete Specefic Contact ${request.params.id}`
+        message: `Delete Specefic Contact ${request.params.id}`,
+        data: contacts
     }).status(200);
 });
 

@@ -19,16 +19,18 @@ app.use(express.json());
 dbConnection();
 
 // Routes For 
-    // Get
-    // app.get("/api/contacts", (request, response) => {
-    //     response.send("Succefully Get All Contacts").status(200);
-    //     We Cann Alos Pass Response as a JSON
-    //     response.json({
-    //         message: "Succefully Get All Contacts"
-    //     }).status(200);
-    // });
-    // Get
-    app.use("/api/contacts/", require("./routes/contacts"));
+// Get
+// app.get("/api/contacts", (request, response) => {
+//     response.send("Succefully Get All Contacts").status(200);
+//     We Cann Alos Pass Response as a JSON
+//     response.json({
+//         message: "Succefully Get All Contacts"
+//     }).status(200);
+// });
+// Contacts Router
+app.use("/api/contacts/", require("./routes/contacts"));
+// Users Router
+app.use("/api/users/", require("./routes/users"));
 
 // Custom Middleware
 app.use(errorHandler);
